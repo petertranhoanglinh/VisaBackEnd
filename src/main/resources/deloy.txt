@@ -1,0 +1,34 @@
+server:
+  port: 8089
+#database
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://ec2-54-147-33-38.compute-1.amazonaws.com:5432/dau85ps0ut9t5e
+    username: cwgwfstzfhjced
+    password: 583d93980ec2ea5737be1113d404cae73bcdedf8fcce452e633d493a9f3956e4
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
+#router
+cryptocurrency.url.coin: /api/coin
+cryptocurrency.url.users: /api/users
+cryptocurrency.url.bank: /api/bank
+cryptocurrency.url.product: /api/product
+cryptocurrency.url.cart: /api/cart
+cryptocurrency.url.account: /api/account
+cryptocurrency.url.notify: /api/notify
+cryptocurrency.url.rewiew: /api/rewiew
+cryptocurrency.url.order: /api/order
+#swagger-ui custom path
+springdoc.swagger-ui.path: /swagger-ui.html
+
+#api binance
+cryptocurrency.url.binance:
+
+#app.cors.allowedOrigins: https://lweb5.herokuapp.com/
