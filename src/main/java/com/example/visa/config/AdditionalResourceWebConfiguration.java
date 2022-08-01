@@ -12,8 +12,8 @@ public class AdditionalResourceWebConfiguration implements WebMvcConfigurer {
 	private final long MAX_AGE_SECS = 3600;
 
 	// Value("${app.cors.allowedOrigins}")
-	private String[] allowedOrigins = { "https://lweb5.herokuapp.com/", "http://lweb5.herokuapp.com/",
-			"http://localhost:3000/" };
+	private String[] allowedOrigins = { "https://kali-visa.herokuapp.com/", "http://kali-visa.herokuapp.com/",
+			"http://localhost:3333/" };
 
 	@Override
 	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
