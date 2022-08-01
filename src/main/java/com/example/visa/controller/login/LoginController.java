@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,13 +43,16 @@ public class LoginController {
 
     @Autowired
     UserSerivece userSerivece;
+    
+    @Autowired
+    MyUserDetail myUserDetail;
 
     
 
     @Autowired
     StorageService storageService;
 
-    @GetMapping("api/check/{userId}")
+    @GetMapping("/api/check/{userId}")
     public String hello(@PathVariable String userId) {
         return this.userSerivece.checkUser(userId);
     }
@@ -99,7 +103,7 @@ public class LoginController {
         }
     }
 
-    @GetMapping("api/getUserDetail")
+    @GetMapping("/api/getUserDetail")
     public ResponseEntity<?> getUserdetail() {
         try {
             return ResponseEntity.ok(Utils.getUserDetail().getUser());
@@ -110,7 +114,7 @@ public class LoginController {
 
     }
 
-    @PostMapping(value = "api/user/upload")
+    @PostMapping(value = "/api/user/upload")
     public ResponseEntity<?> uploadImage(@ModelAttribute UserDto userDto) {
         try {
             String fileName = storageService.store(userDto.getImgData(), "user");
@@ -127,6 +131,19 @@ public class LoginController {
             // TODO: handle exception
             return null;
         }
+    }
+    // check_validate_login for visa 
+    @GetMapping(value = "/api/checkLogin/{jwt}")
+    public boolean check_Login(@PathVariable String jwt) {
+    	try {
+    		String userName = jwtUtilToken.extractUsername(jwt);
+    		UserDetails userDetails = this.myUserDetail.loadUserByUsername(userName);
+    		return jwtUtilToken.validateToken(jwt, userDetails);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+    	
     }
 
 }

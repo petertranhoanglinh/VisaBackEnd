@@ -41,10 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable().authorizeRequests()
                 //this is url pass authencation
                 .antMatchers("/api/authenticate",
-                 "/api/addUser", "/api/coin/getMaketCap/**"
-                 , "/upload/**/**",
-                 "/api/coin/transCoin/**/**/**",
-                 "/api/coin/getAllCoin/**")
+                 "/api/addUser",
+                 "/api/checkLogin/**")
                 .permitAll().anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
