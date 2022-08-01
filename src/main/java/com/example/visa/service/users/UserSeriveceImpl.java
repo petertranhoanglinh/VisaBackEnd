@@ -14,30 +14,11 @@ public class UserSeriveceImpl implements UserSerivece {
     @Autowired
     UserDao userDao;
 
-    @Override
-    public String checkReferralCode(String referralCode) {
-        // TODO Auto-generated method stub
-
-        return this.userDao.checkReferralCode(referralCode);
-    }
 
     @Override
     public UserModel getByUser(String userId) {
         // TODO Auto-generated method stub
         return this.userDao.getByUser(userId);
-    }
-
-    @Override
-    public String checkUser(String userId) {
-        // TODO Auto-generated method stub
-        return this.userDao.checkUser(userId);
-    }
-
-    @Override
-    public void updateUser(String userId, String photo) {
-        // TODO Auto-generated method stub
-        this.userDao.updateUser(userId, photo);
-
     }
 
 }

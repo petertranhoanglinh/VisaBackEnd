@@ -28,9 +28,6 @@ public class Users implements Serializable {
 	@Column(name = "USERNAME")
 	private String userName;
 
-	@Column(name = "RANKCD")
-	private String rankCd;
-
 	@Column(name = "ROLE")
 	private String role;
 
@@ -46,11 +43,8 @@ public class Users implements Serializable {
 	@Column(name = "PHONE")
 	private String phone;
 
-	@Column(name = "TIME_CREATE")
-	private java.sql.Timestamp timeCreate;
-
-	@Column(name = "REFERRAL_CODE")
-	private String refferralCode;
+	@Column(name = "CREATE_DATE")
+	private String createDate;
 
 
 
@@ -86,14 +80,6 @@ public class Users implements Serializable {
 		this.userId = userId;
 	}
 
-	public String getRankCd() {
-		return rankCd;
-	}
-
-	public void setRankCd(String rankCd) {
-		this.rankCd = rankCd;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -110,13 +96,6 @@ public class Users implements Serializable {
 		this.role = role;
 	}
 
-	public String getRefferralCode() {
-		return refferralCode;
-	}
-
-	public void setRefferralCode(String refferralCode) {
-		this.refferralCode = refferralCode;
-	}
 
 	public String getPhoto() {
 		return photo;

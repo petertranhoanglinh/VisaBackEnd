@@ -13,14 +13,8 @@ public interface UserModel {
 
 	public String getRole();
 
-	public String getRate();
-
-	public String getReferralCode();
-
-	public String getCtrId();
-
-	public String getRankCd();
-
 	public String getPhoto();
+	
+	public String getPhone();
 
 }
