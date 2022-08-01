@@ -28,9 +28,6 @@ public class Users implements Serializable {
 	@Column(name = "USERNAME")
 	private String userName;
 
-	@Column(name = "CTRID")
-	private String ctrId;
-
 	@Column(name = "RANKCD")
 	private String rankCd;
 
@@ -39,6 +36,15 @@ public class Users implements Serializable {
 
 	@Column(name = "PHOTO")
 	private String photo;
+	
+	@Column(name = "EMAIL")
+	private String email;
+	
+	@Column(name = "ADDRESS")
+	private String address;
+	
+	@Column(name = "PHONE")
+	private String phone;
 
 	@Column(name = "TIME_CREATE")
 	private java.sql.Timestamp timeCreate;
@@ -46,15 +52,22 @@ public class Users implements Serializable {
 	@Column(name = "REFERRAL_CODE")
 	private String refferralCode;
 
-	@Column(name = "RATE")
-	private int rate;
 
-	public int getRate() {
-		return rate;
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setRate(int rate) {
-		this.rate = rate;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getUserName() {
@@ -71,14 +84,6 @@ public class Users implements Serializable {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-
-	public String getCtrId() {
-		return ctrId;
-	}
-
-	public void setCtrId(String ctrId) {
-		this.ctrId = ctrId;
 	}
 
 	public String getRankCd() {

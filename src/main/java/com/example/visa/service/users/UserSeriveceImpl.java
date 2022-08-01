@@ -22,29 +22,6 @@ public class UserSeriveceImpl implements UserSerivece {
     }
 
     @Override
-    public void addUser(UserDto user) {
-        Users userEntity = new Users();
-        if (user.getRefferralCode() != null && !user.getRefferralCode().equals("")) {
-            String usersRef = this.userDao.checkReferralCode(user.getRefferralCode());
-            // TODO Auto-generated method stub
-            if (usersRef != null) {
-                user.setRate(1);
-                userEntity.setRate(1);
-                this.userDao.updateRateByUserId(usersRef);
-            }
-        }
-
-        String password = new BCryptPasswordEncoder().encode(user.getPassword());
-        userEntity.setUserName(user.getUserName());
-        userEntity.setPassword(password);
-        userEntity.setCtrId(user.getCtrId());
-        userEntity.setRole(user.getRole());
-        userEntity.setRankCd(user.getRankCd());
-        userEntity.setUserId(user.getUserId());
-        this.userDao.save(userEntity);
-    }
-
-    @Override
     public UserModel getByUser(String userId) {
         // TODO Auto-generated method stub
         return this.userDao.getByUser(userId);
