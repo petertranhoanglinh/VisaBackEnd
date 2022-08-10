@@ -33,6 +33,7 @@ public class MyUserDetail implements UserDetailsService {
         authorities.add(new SimpleGrantedAuthority(roleName));
         System.out.println("this is authorite" + authorities.toString() +
                 "userId : " + user.getUserId());
+        // config thêm các thông tin cần vào trong userDetail
         return new CustomUserDetails(user.getPassword(), user.getUserId(), true, true, true, true, authorities, user);
     }
 

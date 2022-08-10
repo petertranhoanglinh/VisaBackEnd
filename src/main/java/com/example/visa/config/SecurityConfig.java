@@ -34,15 +34,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetail).passwordEncoder(passwordEncoder());
     }
 
+    // đây chúng tôi cho phép truy cập ẩn danh khi đăng nhập / để người dùng có thể
+    // xác thực. Chúng tôi sẽ hạn chế
+    // quản trị viên đối với các vai trò QUẢN TRỊ và đảm bảo mọi thứ khác:
+
+    // một số chú thích với spring security
+    // loginPage () - trang đăng nhập tùy chỉnh
+    // loginProcessingUrl () - URL để gửi tên người dùng và mật khẩu đến
+    // defaultSuccessUrl () - trang đích sau khi đăng nhập thành công
+    // failUrl () - trang đích sau khi đăng nhập không thành công
+    // logoutUrl () - đăng xuất tùy chỉnh
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // TODO Auto-generated method stub
         http.cors()
                 .and().csrf().disable().authorizeRequests()
-                //this is url pass authencation
+                // this is url pass authencation
                 .antMatchers("/api/authenticate",
-                 "/api/addUser",
-                 "/api/checkLogin/**")
+                        "/api/addUser",
+                        "/api/checkLogin/**")
                 .permitAll().anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

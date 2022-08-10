@@ -7,6 +7,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+
+// spring xác nhận ứng dụng tích hợp spring security
 @EnableWebMvc
 public class AdditionalResourceWebConfiguration implements WebMvcConfigurer {
 	private final long MAX_AGE_SECS = 3600;
