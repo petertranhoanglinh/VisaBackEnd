@@ -1,7 +1,6 @@
 package com.example.visa.service.consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.example.visa.dao.consumer.ConsumerDao;
@@ -19,7 +18,7 @@ public class ConsumerServiceImpl implements ConsumerService {
         String workUser = Utils.getUserDetail().getUsername();
         // TODO Auto-generated method stub
         return this.dao.callConsumerSP(dto.getId(), dto.getName(),
-                dto.getAddress(), dto.getMobile(), workUser);
+                dto.getAddress(), dto.getMobile(), dto.getEmail(), workUser);
     }
 
 }

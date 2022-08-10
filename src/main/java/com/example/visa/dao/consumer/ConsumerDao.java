@@ -9,8 +9,8 @@ import com.example.visa.entity.Users;
 @Repository
 public interface ConsumerDao extends JpaRepository<Users, String> {
 
-    @Query(value = "CALL CONSUMER_SP(:id,:name,:address,:mobile,:workUser,0)", nativeQuery = true)
-    public int callConsumerSP(long id, String name, String address, String mobile,
+    @Query(value = "CALL CONSUMER_SP(:id,:name,:address,:mobile,:email , :workUser,0)", nativeQuery = true)
+    public int callConsumerSP(long id, String name, String address, String mobile, String email,
             String workUser);
 
 }
