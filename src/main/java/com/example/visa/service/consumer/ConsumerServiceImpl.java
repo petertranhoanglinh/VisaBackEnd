@@ -27,6 +27,11 @@ public class ConsumerServiceImpl implements ConsumerService {
     @Override
     public List<ConsumerModel> getAll(String mobile, String workUser) {
         // TODO Auto-generated method stub
+        if (mobile.equals("*")) {
+            mobile = "%%";
+        } else {
+            mobile = "%" + mobile + "%";
+        }
         return this.dao.getAll(mobile, workUser);
     }
 

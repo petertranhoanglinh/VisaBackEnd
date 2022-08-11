@@ -25,7 +25,7 @@ public interface ConsumerDao extends JpaRepository<Users, String> {
             + "                   , Work_Date as workDate                      "
             + "                from Consumer A , users B                       "
             + "               where A.work_user = B.userId                     "
-            + "                 and A.mobile  =:mobile                         "
+            + "                 and A.mobile like :mobile                         "
             + "                 and A.work_user  =:workUser                         ", nativeQuery = true)
     public List<ConsumerModel> getAll(String mobile, String workUser);
 
