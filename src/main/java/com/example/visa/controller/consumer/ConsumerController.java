@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.visa.dto.consumer.ConsumerDto;
 import com.example.visa.service.consumer.ConsumerService;
 import com.example.visa.util.MessegeStatus;
+import com.example.visa.util.Utils;
 
 @RestController
-@RequestMapping("/consumer")
+@RequestMapping("/api/consumer")
 public class ConsumerController {
     @Autowired
     ConsumerService service;
@@ -42,10 +43,11 @@ public class ConsumerController {
     @GetMapping("/all/{mobile}")
     public ResponseEntity<?> getAll(@PathVariable String mobile) {
         try {
-            return null;
+            String workUser = Utils.getUserDetail().getUsername();
+            return ResponseEntity.ok(this.service.getAll(mobile, workUser));
         } catch (Exception e) {
             // TODO: handle exception
-            return null;
+            return ResponseEntity.ok(new MessegeStatus("fail", "0000"));
         }
 
     }
