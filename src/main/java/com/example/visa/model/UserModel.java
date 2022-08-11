@@ -1,4 +1,4 @@
-package com.example.visa.model.accounts;
+package com.example.visa.model;
 
 public interface UserModel {
 	public String getPassword();
@@ -14,7 +14,7 @@ public interface UserModel {
 	public String getRole();
 
 	public String getPhoto();
-	
+
 	public String getPhone();
 
 }

@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.visa.dao.users.UserDao;
-import com.example.visa.model.accounts.UserModel;
+import com.example.visa.model.UserModel;
 import com.example.visa.service.login.CustomUserDetails;
 
 import org.springframework.security.core.GrantedAuthority;

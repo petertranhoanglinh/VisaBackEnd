@@ -5,7 +5,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.visa.entity.Users;
-import com.example.visa.model.accounts.UserModel;
+import com.example.visa.model.UserModel;
 
 @Repository
 public interface LoginDao extends PagingAndSortingRepository<Users, String> {

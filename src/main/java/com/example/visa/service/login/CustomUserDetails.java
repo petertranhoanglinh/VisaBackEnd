@@ -6,7 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.visa.model.accounts.UserModel;
+import com.example.visa.model.UserModel;
 
 public class CustomUserDetails implements UserDetails {
     private static final long serialVersionUID = 1L;

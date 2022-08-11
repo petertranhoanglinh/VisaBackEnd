@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import com.example.visa.model.accounts.UserModel;
+import com.example.visa.model.UserModel;
 
 public class AuthencationResponse {
 	private final String jwt;

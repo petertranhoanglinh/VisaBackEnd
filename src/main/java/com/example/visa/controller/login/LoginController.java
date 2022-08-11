@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.visa.config.MyUserDetail;
 import com.example.visa.dto.login.AuthencationRequest;
 import com.example.visa.dto.login.AuthencationResponse;
-import com.example.visa.model.accounts.UserModel;
+import com.example.visa.model.UserModel;
 import com.example.visa.service.login.CustomUserDetails;
 import com.example.visa.service.system.StorageService;
 import com.example.visa.service.users.UserSerivece;
@@ -35,16 +35,13 @@ public class LoginController {
 
     @Autowired
     UserSerivece userSerivece;
-    
+
     @Autowired
     MyUserDetail myUserDetail;
-
-    
 
     @Autowired
     StorageService storageService;
 
- 
     @PostMapping("/api/authenticate")
     public ResponseEntity<?> createAuthencationToken(@RequestBody AuthencationRequest authencationRequest)
             throws Exception {
@@ -78,19 +75,19 @@ public class LoginController {
         }
 
     }
-    
-    // check_validate_login for visa 
+
+    // check_validate_login for visa
     @GetMapping(value = "/api/checkLogin/{jwt}")
     public boolean check_Login(@PathVariable String jwt) {
-    	try {
-    		String userName = jwtUtilToken.extractUsername(jwt);
-    		UserDetails userDetails = this.myUserDetail.loadUserByUsername(userName);
-    		return jwtUtilToken.validateToken(jwt, userDetails);
-		} catch (Exception e) {
-			// TODO: handle exception
-			return false;
-		}
-    	
+        try {
+            String userName = jwtUtilToken.extractUsername(jwt);
+            UserDetails userDetails = this.myUserDetail.loadUserByUsername(userName);
+            return jwtUtilToken.validateToken(jwt, userDetails);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return false;
+        }
+
     }
 
 }
