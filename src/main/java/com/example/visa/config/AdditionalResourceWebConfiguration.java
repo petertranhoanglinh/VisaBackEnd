@@ -15,7 +15,7 @@ public class AdditionalResourceWebConfiguration implements WebMvcConfigurer {
 
 	// Value("${app.cors.allowedOrigins}")
 	private String[] allowedOrigins = { "https://kali-visa.herokuapp.com/", "http://kali-visa.herokuapp.com/",
-			"http://localhost:3333/","https://petertranhoanglinh.github.io/**/"};
+			"http://localhost:3333/","https://petertranhoanglinh.github.io/**/","https://petertranhoanglinh.github.io/"};
 
 	@Override
 	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
