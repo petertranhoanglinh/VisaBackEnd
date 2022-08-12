@@ -28,5 +28,8 @@ public interface ConsumerDao extends JpaRepository<Users, String> {
             + "                 and A.mobile like :mobile                         "
             + "                 and A.work_user  =:workUser                         ", nativeQuery = true)
     public List<ConsumerModel> getAll(String mobile, String workUser);
+    
+    @Query(value = "CALL CONSUMER_DEL_SP(:id,:workUser,0)", nativeQuery = true)
+    public int callConsumerDelSP(long id, String workUser);
 
 }

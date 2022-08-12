@@ -35,4 +35,10 @@ public class ConsumerServiceImpl implements ConsumerService {
         return this.dao.getAll(mobile, workUser);
     }
 
+	@Override
+	public int callConsumerDelSP(long id, String workUser) {
+		// TODO Auto-generated method stub
+		return this.dao.callConsumerDelSP(id, workUser);
+	}
+
 }

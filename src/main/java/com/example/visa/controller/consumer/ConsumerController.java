@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,7 +48,26 @@ public class ConsumerController {
             return ResponseEntity.ok(this.service.getAll(mobile, workUser));
         } catch (Exception e) {
             // TODO: handle exception
-            return ResponseEntity.ok(new MessegeStatus("fail", "0000"));
+            return null;
+        }
+
+    }
+    
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable long id) {
+        try {
+        	 String workUser = Utils.getUserDetail().getUsername();
+        	 int i = this.service.callConsumerDelSP(id, workUser);
+        	 
+        	 if(i==1) {
+        		 return ResponseEntity.ok(new MessegeStatus(" Delete consumer suscess", "0001"));
+        	 }else {
+        		 return ResponseEntity.ok(new MessegeStatus("Fail delete", "0000"));
+        	 }
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.ok(new MessegeStatus("Fail delete", "0000"));
         }
 
     }
