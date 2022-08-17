@@ -2,6 +2,7 @@ package com.example.visa.dao.consumer;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -27,7 +28,7 @@ public interface ConsumerDao extends JpaRepository<Users, String> {
             + "               where A.work_user = B.userId                     "
             + "                 and A.mobile like :mobile                         "
             + "                 and A.work_user  =:workUser                         ", nativeQuery = true)
-    public List<ConsumerModel> getAll(String mobile, String workUser);
+    public List<ConsumerModel> getAll(String mobile, String workUser, Pageable pageable);
     
     @Query(value = "CALL CONSUMER_DEL_SP(:id,:workUser,0)", nativeQuery = true)
     public int callConsumerDelSP(long id, String workUser);

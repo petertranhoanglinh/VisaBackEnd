@@ -3,6 +3,7 @@ package com.example.visa.service.consumer;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.example.visa.dao.consumer.ConsumerDao;
@@ -25,14 +26,14 @@ public class ConsumerServiceImpl implements ConsumerService {
     }
 
     @Override
-    public List<ConsumerModel> getAll(String mobile, String workUser) {
+    public List<ConsumerModel> getAll(String mobile, String workUser , int page) {
         // TODO Auto-generated method stub
         if (mobile.equals("*")) {
             mobile = "%%";
         } else {
             mobile = "%" + mobile + "%";
         }
-        return this.dao.getAll(mobile, workUser);
+        return this.dao.getAll(mobile, workUser ,PageRequest.of(page, 10));
     }
 
 	@Override

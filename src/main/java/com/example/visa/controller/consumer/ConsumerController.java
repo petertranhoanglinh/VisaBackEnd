@@ -41,30 +41,32 @@ public class ConsumerController {
 
     }
 
-    @GetMapping("/all/{mobile}")
-    public ResponseEntity<?> getAll(@PathVariable String mobile) {
+    @GetMapping("/all/{mobile}/{page}")
+    public ResponseEntity<?> getAll(@PathVariable String mobile, @PathVariable int page) {
         try {
             String workUser = Utils.getUserDetail().getUsername();
-            return ResponseEntity.ok(this.service.getAll(mobile, workUser));
+
+            return ResponseEntity.ok(this.service.getAll(mobile, workUser, page - 1));
+
         } catch (Exception e) {
             // TODO: handle exception
             return null;
         }
 
     }
-    
+
     @PutMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         try {
-        	 String workUser = Utils.getUserDetail().getUsername();
-        	 int i = this.service.callConsumerDelSP(id, workUser);
-        	 
-        	 if(i==1) {
-        		 return ResponseEntity.ok(new MessegeStatus(" Delete consumer suscess", "0001"));
-        	 }else {
-        		 return ResponseEntity.ok(new MessegeStatus("Fail delete", "0000"));
-        	 }
-            
+            String workUser = Utils.getUserDetail().getUsername();
+            int i = this.service.callConsumerDelSP(id, workUser);
+
+            if (i == 1) {
+                return ResponseEntity.ok(new MessegeStatus(" Delete consumer suscess", "0001"));
+            } else {
+                return ResponseEntity.ok(new MessegeStatus("Fail delete", "0000"));
+            }
+
         } catch (Exception e) {
             // TODO: handle exception
             return ResponseEntity.ok(new MessegeStatus("Fail delete", "0000"));
