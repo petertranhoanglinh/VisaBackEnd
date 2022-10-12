@@ -9,5 +9,6 @@ public interface ConsumerService {
     public int callConsumerSP(ConsumerDto dto);
     public int callConsumerDelSP(long id, String workUser);
     public List<ConsumerModel> getAll(String mobile, String workUser , int page);
+	List<ConsumerModel> getAllTest();
 
 }

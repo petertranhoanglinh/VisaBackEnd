@@ -52,7 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // this is url pass authencation
                 .antMatchers("/api/authenticate",
                         "/api/addUser",
-                        "/api/checkLogin/**")
+                        "/api/checkLogin/**",
+                        "/api/consumer/getTestAll")
                 .permitAll().anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

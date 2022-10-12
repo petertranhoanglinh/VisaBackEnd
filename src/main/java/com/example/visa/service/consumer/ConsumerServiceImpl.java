@@ -41,5 +41,10 @@ public class ConsumerServiceImpl implements ConsumerService {
 		// TODO Auto-generated method stub
 		return this.dao.callConsumerDelSP(id, workUser);
 	}
+	
+	@Override 
+	public List<ConsumerModel> getAllTest(){
+		return this.dao.getAllTest();
+	}
 
 }

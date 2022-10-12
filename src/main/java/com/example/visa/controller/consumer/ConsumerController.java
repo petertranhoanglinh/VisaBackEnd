@@ -73,5 +73,15 @@ public class ConsumerController {
         }
 
     }
+    
+    @GetMapping("/getTestAll")
+    public ResponseEntity<?> getTestAll(){
+    	try {
+			return ResponseEntity.ok("");
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+    }
 
 }
