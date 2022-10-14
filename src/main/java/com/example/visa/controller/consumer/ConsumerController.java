@@ -24,6 +24,10 @@ public class ConsumerController {
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody ConsumerDto dto) {
         try {
+            
+            if(!Utils.isAdmin()) {
+                return ResponseEntity.ok(new MessegeStatus("Only admin can register", "0000"));
+            }
             long i = this.service.callConsumerSP(dto);
             if (i == 1) {
                 return ResponseEntity.ok(new MessegeStatus("Consumer register suscess", "0001"));
@@ -34,6 +38,8 @@ public class ConsumerController {
             } else {
                 return ResponseEntity.ok(new MessegeStatus("Fail", "0000"));
             }
+            
+            
         } catch (Exception e) {
             // TODO: handle exception
             return ResponseEntity.ok(new MessegeStatus("fail", "0000"));

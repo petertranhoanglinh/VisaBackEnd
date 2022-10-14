@@ -7,6 +7,7 @@ import java.util.Date;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.example.visa.model.UserModel;
 import com.example.visa.service.login.CustomUserDetails;
 
 public class Utils {
@@ -42,5 +43,13 @@ public class Utils {
 		CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
 		return userDetails;
 	}
+	
+	public static boolean isAdmin() {
+	    
+	    UserModel userModel = getUserDetail().getUser();
+	    return ("ADMIN".equals(userModel.getRole()));
+
+	}
 
 }
+
