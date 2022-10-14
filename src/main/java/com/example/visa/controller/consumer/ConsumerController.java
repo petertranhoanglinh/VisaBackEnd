@@ -64,6 +64,9 @@ public class ConsumerController {
     @PutMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         try {
+            if(!Utils.isAdmin()) {
+                return ResponseEntity.ok(new MessegeStatus("Only admin can delete", "0000"));
+            }
             String workUser = Utils.getUserDetail().getUsername();
             int i = this.service.callConsumerDelSP(id, workUser);
 
