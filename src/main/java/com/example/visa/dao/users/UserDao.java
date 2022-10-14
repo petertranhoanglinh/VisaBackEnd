@@ -19,6 +19,7 @@ public interface UserDao extends JpaRepository<Users, String> {
                         + "          , phone         as phone       "
                         + "          , email         as email       "
                         + "       FROM USERS                        "
-                        + "      WHERE USERID =:userId              ", nativeQuery = true)
+                        + "      WHERE USERID =:userId              "
+                        + "         OR EMAIL  =:userId              ", nativeQuery = true)
         public UserModel getByUser(String userId);
 }
