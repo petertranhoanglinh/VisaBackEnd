@@ -20,6 +20,7 @@ import com.example.visa.service.login.CustomUserDetails;
 import com.example.visa.service.system.StorageService;
 import com.example.visa.service.users.UserSerivece;
 import com.example.visa.util.JwtUtil;
+import com.example.visa.util.MessegeStatus;
 import com.example.visa.util.Utils;
 
 @RestController
@@ -89,5 +90,30 @@ public class LoginController {
         }
 
     }
-
+    
+    @PostMapping(value = "/api/addUser")
+    public ResponseEntity<?> addUser(@RequestBody AuthencationRequest dto){
+        try {
+            return ResponseEntity.ok(this.userSerivece.addUser(dto.getUserName()
+                    , dto.getPassword()));
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
+    }
+    
+    @GetMapping(value = "/api/checkEmail/{email}")
+    public ResponseEntity<?> checkEmail(@PathVariable String email){
+        try {
+           if(this.userSerivece.isEmailHasUsed(email)) {
+               return ResponseEntity.ok(new MessegeStatus("Email has used", "0000"));
+           }else {
+               return ResponseEntity.ok(new MessegeStatus("Email OK", "0001"));
+           }
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
+    }
+ 
 }
