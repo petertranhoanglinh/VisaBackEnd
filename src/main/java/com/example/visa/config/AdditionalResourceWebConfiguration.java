@@ -28,7 +28,7 @@ public class AdditionalResourceWebConfiguration implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
-				.allowedOrigins(allowedOrigins)
+				.allowedOrigins("*") // want to add vô allowedOrigins để chỉ cho các trang web này chạy đc
 				.allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE")
 				.maxAge(MAX_AGE_SECS);
 
