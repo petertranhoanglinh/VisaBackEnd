@@ -3,9 +3,10 @@ server:
 #database
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/db
-    username: postgres
-    password: 1234
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://ec2-50-19-255-190.compute-1.amazonaws.com:5432/d304qaf4fhmf7n
+    username: bmnprpjdbokbwl
+    password: 2e4c38ccb1a5f02a8bb047e8ffad01fbfe4e343a9422a34b0c62eb87fb9fb70c
   jpa:
     show-sql: true
     generate-ddl: true
@@ -14,4 +15,10 @@ spring:
     properties:
       database-platform: org.hibernate.dialect.PostgreSQLDialect
     database: postgresql
+#router
+
+
+#api binance
+
+
 
