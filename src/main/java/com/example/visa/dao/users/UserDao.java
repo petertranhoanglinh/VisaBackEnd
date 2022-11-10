@@ -19,9 +19,25 @@ public interface UserDao extends JpaRepository<Users, String> {
                         + "          , phone         as phone       "
                         + "          , email         as email       "
                         + "       FROM USERS                        "
-                        + "      WHERE USERID =:userId              "
-                        + "         OR EMAIL  =:userId              ", nativeQuery = true)
+                        + "      WHERE (USERID =:userId             "
+                        + "         OR EMAIL  =:userId)             "
+                        + "        AND STATUS =  'ACTIVE'           ", nativeQuery = true)
         public UserModel getByUser(String userId);
+        
+        
+
+        @Query(value = "SELECT USERNAME AS userName                 "
+                        + "          , USERID     AS userId         "
+                        + "          , ROLE     AS role             "
+                        + "          , PASSWORD AS password         "
+                        + "          , photo         as photo       "
+                        + "          , address       as address     "
+                        + "          , phone         as phone       "
+                        + "          , email         as email       "
+                        + "       FROM USERS                        "
+                        + "      WHERE (USERID =:userId             "
+                        + "         OR EMAIL  =:userId)             ", nativeQuery = true)
+        public UserModel getByUserEmailCheck(String userId);
         
         @Query(value = "CALL USER_PK(:email,:password,0)", nativeQuery = true)
         public int callUserPK(String email, String password);

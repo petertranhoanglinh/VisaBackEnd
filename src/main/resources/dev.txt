@@ -1,11 +1,11 @@
 server:
-  port: 8089
+  port: 8888
 #database
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/tienao
+    url: jdbc:postgresql://localhost:5432/db
     username: postgres
-    password: postgres
+    password: 1234
   jpa:
     show-sql: true
     generate-ddl: true
@@ -14,20 +14,4 @@ spring:
     properties:
       database-platform: org.hibernate.dialect.PostgreSQLDialect
     database: postgresql
-#router
-cryptocurrency.url.coin: /api/coin
-cryptocurrency.url.users: /api/users
-cryptocurrency.url.bank: /api/bank
-cryptocurrency.url.product: /api/product
-cryptocurrency.url.cart: /api/cart
-cryptocurrency.url.account: /api/account
-cryptocurrency.url.notify: /api/notify
-cryptocurrency.url.rewiew: /api/rewiew
-cryptocurrency.url.order: /api/order
-#swagger-ui custom path
-springdoc.swagger-ui.path: /swagger-ui.html
 
-#api binance
-cryptocurrency.url.binance:
-
-#app.cors.allowedOrigins: http://localhost:3000

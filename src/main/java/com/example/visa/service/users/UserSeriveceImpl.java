@@ -37,7 +37,7 @@ public class UserSeriveceImpl implements UserSerivece {
     @Override
     public boolean isEmailHasUsed(String email) {
         // TODO Auto-generated method stub
-        UserModel user = this.userDao.getByUser(email);
+        UserModel user = this.userDao.getByUserEmailCheck(email);
       
         return (user != null);
     }

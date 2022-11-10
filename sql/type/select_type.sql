@@ -1,0 +1,1 @@
+select (fulladdress).apartment_number from users
