@@ -38,18 +38,6 @@ public class ApiPaymentController {
     
     @RequestMapping(
             method = RequestMethod.GET,
-            value = "/client-ip-address",
-            produces = MediaType.TEXT_PLAIN_VALUE
-        )
-        @ResponseBody
-        public String getClientIPAddress(HttpServletRequest request) {
-            String ip = com.example.visa.util.HttpUtils.getRequestIP(request);
-            return "Client IP Address: " + ip;
-        }
-    
-    
-    @RequestMapping(
-            method = RequestMethod.GET,
             value = "/VNPAY",
             produces = MediaType.TEXT_PLAIN_VALUE
         )
