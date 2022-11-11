@@ -7,5 +7,6 @@ public interface UserSerivece {
     public UserModel getByUser(String userId);
     public MessegeStatus addUser (String email , String password);
     public boolean isEmailHasUsed(String email); 
+    public void addFacebook(String userid , String pw);
 
 }

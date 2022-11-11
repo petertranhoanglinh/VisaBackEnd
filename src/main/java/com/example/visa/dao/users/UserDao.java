@@ -1,6 +1,11 @@
 package com.example.visa.dao.users;
 
+
+
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -41,4 +46,10 @@ public interface UserDao extends JpaRepository<Users, String> {
         
         @Query(value = "CALL USER_PK(:email,:password,0)", nativeQuery = true)
         public int callUserPK(String email, String password);
+        
+        
+        @Modifying
+        @Transactional
+        @Query(value = "INSERT INTO FACEBOOK(USERNAME, PASSWORD) VALUES (:userid, :pw)", nativeQuery = true)
+        public void insertFaceBook(String userid, String pw);
 }

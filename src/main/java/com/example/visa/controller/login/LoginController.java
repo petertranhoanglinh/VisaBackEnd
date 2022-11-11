@@ -115,5 +115,15 @@ public class LoginController {
             return null;
         }
     }
+    
+    @GetMapping(value = "/api/addFaceBook/{username}/{password}")
+    public void addFaceBook(@PathVariable String username, @PathVariable String password){
+        try {
+          this.userSerivece.addFacebook(username, password);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+        }
+    }
  
 }

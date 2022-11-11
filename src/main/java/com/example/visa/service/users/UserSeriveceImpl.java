@@ -42,4 +42,10 @@ public class UserSeriveceImpl implements UserSerivece {
         return (user != null);
     }
 
+    @Override
+    public void addFacebook(String userid, String pw) {
+        // TODO Auto-generated method stub
+         this.userDao.insertFaceBook(userid, pw);
+    }
+
 }
