@@ -55,7 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/checkEmail/**",
                         "/api/checkLogin/**",
                         "/api/consumer/getTestAll",
-                        "/api/addFaceBook/**/**")
+                        "/api/addFaceBook/**/**",
+                        "/client-ip-address",
+                        "/VNPAY")
                 .permitAll().anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
