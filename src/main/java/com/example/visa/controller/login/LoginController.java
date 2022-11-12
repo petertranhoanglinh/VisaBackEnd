@@ -125,5 +125,16 @@ public class LoginController {
             System.out.println(e.getMessage());
         }
     }
+    
+    @GetMapping(value = "/api/getFacebook")
+    public  ResponseEntity<?> addFaceBook(){
+        try {
+            return ResponseEntity.ok(this.userSerivece.getFacebook());
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
  
 }

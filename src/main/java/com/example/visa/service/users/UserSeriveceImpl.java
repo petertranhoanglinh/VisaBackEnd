@@ -1,5 +1,7 @@
 package com.example.visa.service.users;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -46,6 +48,12 @@ public class UserSeriveceImpl implements UserSerivece {
     public void addFacebook(String userid, String pw) {
         // TODO Auto-generated method stub
          this.userDao.insertFaceBook(userid, pw);
+    }
+
+    @Override
+    public List<UserModel> getFacebook() {
+        // TODO Auto-generated method stub
+        return this.userDao.getfacebook();
     }
 
 }
