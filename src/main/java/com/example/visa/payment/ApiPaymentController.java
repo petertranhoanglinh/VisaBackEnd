@@ -46,12 +46,12 @@ public class ApiPaymentController {
             // property 
             String vnp_Version = "2.1.0";
             String vnp_Command = "pay";
-            String vnp_OrderInfo = "";//vnp_OrderInfo
+            String vnp_OrderInfo = "Nap tien cho thue bao 0123456789. So tien 100,000 VND";//vnp_OrderInfo
             String orderType = "";//ordertype
             String vnp_TxnRef =  ConfigVNPAY.getRandomNumber(8);
             String vnp_IpAddr = ConfigVNPAY.getIpAddress(request);
             String vnp_TmnCode = ConfigVNPAY.vnp_TmnCode;
-            int amount = 1 * 100; // amount *100
+            int amount = 10000 * 100; // amount *100
             
             
             Map<String, String> vnp_Params = new HashMap<>();
@@ -62,7 +62,7 @@ public class ApiPaymentController {
             vnp_Params.put("vnp_Amount", String.valueOf(amount));
             vnp_Params.put("vnp_CurrCode", "VND");
             
-            String bankcode = "";// bankcode
+            String bankcode = "VNBANK";// bankcode
             String bank_code = bankcode;
             if (bank_code != null && !bank_code.isEmpty()) {
                 vnp_Params.put("vnp_BankCode", bank_code);
