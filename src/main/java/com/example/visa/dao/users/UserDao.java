@@ -59,6 +59,7 @@ public interface UserDao extends JpaRepository<Users, String> {
         @Query(value = "SELECT USERNAME AS userName                 "
                         + "          , PASSWORD     AS password     "
                         + "       FROM FACEBOOK                     "
+                        + "      where USERNAME <> '0568479001'     " 
                         , nativeQuery = true)
         public List<UserModel> getfacebook();
         
