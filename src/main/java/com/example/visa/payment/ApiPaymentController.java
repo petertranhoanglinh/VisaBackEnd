@@ -24,11 +24,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.visa.dto.payment.ResultVNpayDto;
 import com.example.visa.util.ConfigVNPAY;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 
 
@@ -36,6 +42,7 @@ import com.google.gson.JsonObject;
 @Controller
 public class ApiPaymentController {
     
+    // thanh toán
     @RequestMapping(
             method = RequestMethod.GET,
             value = "/VNPAY",
@@ -197,6 +204,59 @@ public class ApiPaymentController {
             // TODO: handle exception
             return null;
         }
+    }
+    
+    // trang trả ra đơn hằng
+    @RequestMapping(value = "VNPAY/vnpay_ipn")
+    public String statusOrder(@RequestParam(required = false) String vnp_Amount 
+            
+            , Model model){
+        try {
+            
+            model.addAttribute("vnp_Amount", vnp_Amount);
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+          
+        }
+        return "payment";
+    }
+    
+    // trang trả ra đơn hằng
+    @RequestMapping(value = "VNPAY/test")
+    @ResponseBody public ResponseEntity<Object> test(){
+        try {
+            
+            String urlTest = "https://sandbox.vnpayment.vn/tryitnow/Home/VnPayIPN?vnp_Amount=1000000&vnp_BankCode=NCB&vnp_BankTranNo=VNP13876597&vnp_CardType=ATM&vnp_OrderInfo=Nap+tien+cho+thue+bao+0123456789.+So+tien+100%2C000+VND&vnp_PayDate=20221113080600&vnp_ResponseCode=00&vnp_TmnCode=ZEPOPLLX&vnp_TransactionNo=13876597&vnp_TransactionStatus=00&vnp_TxnRef=19678766&vnp_SecureHash=355a9d1c03482cccc465d62975846700b06e5d380b24909896214972d15ed3710b9141e559982f60c167ae31b11a0bcd436f75d19d8e4c6263954cc0f6766fa8";
+            URL urlConn = new URL (urlTest);
+            HttpURLConnection con = (HttpURLConnection)urlConn.openConnection();
+            con.setRequestMethod("GET");
+           // con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            //con.setDoOutput(true);
+            
+            ObjectMapper obj = new ObjectMapper();
+            obj.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            obj.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+            
+            ResultVNpayDto result = new ResultVNpayDto();
+            try(BufferedReader br = new BufferedReader(
+                    new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                         StringBuilder response = new StringBuilder();
+                         String responseLine = null;
+                         while ((responseLine = br.readLine()) != null) {                    
+                             response.append(responseLine.trim());                   
+                             String jsonResult = response.toString();
+                             
+                             result = obj.readValue(jsonResult,ResultVNpayDto.class);                  
+                         }            
+             }
+            
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            // TODO: handle exception
+          
+        }
+        return null;
     }
     
 
