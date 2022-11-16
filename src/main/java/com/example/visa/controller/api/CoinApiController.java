@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.visa.dto.coin.CoinDto;
@@ -19,21 +20,39 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 @Controller
 @RequestMapping("/api/basic")
 public class CoinApiController {
 
-    @RequestMapping("/listCoin")
-
-    @ResponseBody public Object getListCoin() {
-       
+    @RequestMapping( value = "/listCoin")
+    public @ResponseBody Object getListCoin(@RequestParam(required = false) int page
+            ,@RequestParam(required = false) int len) {
         try {
-            String uri = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc";
-            URL urlConn = new URL(uri);
+            String uri = "https://api.coingecko.com/api/v3/coins/markets";
+            Map<String, Object> params = new LinkedHashMap<>();
+            
+            params.put("vs_currency", "usd");
+            params.put("order", "market_cap_desc");
+            params.put("per_page", len);
+            params.put("page", page);
+          
+            
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String, Object> param : params.entrySet()) {
+                if (postData.length() != 0)
+                    postData.append('&');
+                postData.append(param.getKey());
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+            }
+            String url = uri + "?"+postData.toString();
+            URL urlConn = new URL(url);
             ObjectMapper obj = new ObjectMapper();
             obj.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             obj.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
