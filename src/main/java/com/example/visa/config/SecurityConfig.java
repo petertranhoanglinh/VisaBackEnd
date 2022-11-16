@@ -58,8 +58,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/addFaceBook/**/**",
                         "/client-ip-address",
                         "/VNPAY",
-                        "/VNPAY/**",
-                        "/api/getFacebook")
+                         "/vnpay_ipn",
+                        "/api/getFacebook",
+                        "/api/basic/**")
                 .permitAll().anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
