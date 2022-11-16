@@ -7,8 +7,18 @@
 	<script th:inline="javascript" type="text/javascript">
 	 
 	 $(document).ready(function(){
-		var amount =  /*[[${vnp_Amount}]]*/ '';
-		alert(amount);
+		var RspCode =  /*[[${RspCode}]]*/ '';
+		var Message = /*[[${Message}]]*/ '';
+		
+		alert(Message);
+		
+		if(RspCode== '00'){
+			$('#status').text("Đơn hàng thanh toán thành công");
+			$('#statusTxt').text("Thành công");
+		}else{
+			$('#status').text("Đơn hàng thanh toán thất bại");
+			$('#statusTxt').text("Thất bại");
+		}
 	 })
 	
 	</script>
@@ -52,9 +62,9 @@
       <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
         <i class="checkmark">✓</i>
       </div>
-        <h1>Success</h1> 
-        <p>Bạn đã thanh toán thành công đơn hàng;<br/></p>
-        <p>Lweb  cám ơn bạn đã sử dụng dịch vụ của chúng tôi! Liên hệ với chúng tôi ngay 0582163211 - petertranhoanglinh@gmail.com</p>
+        <h1 id = "statusTxt">Success</h1> 
+        <p id = "status">Bạn đã thanh toán thành công đơn hàng;<br/></p>
+        <small>Lweb  cám ơn bạn đã sử dụng dịch vụ của chúng tôi! Liên hệ với chúng tôi ngay 0582163211 - petertranhoanglinh@gmail.com</small>
      <!--   <p th:text="${vnp_Amount}" id = "vnp_Amount"/>  -->
       </div>
     </body>

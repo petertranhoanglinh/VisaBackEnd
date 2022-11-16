@@ -50,6 +50,9 @@ public class Utils {
 	    return ("ADMIN".equals(userModel.getRole()));
 
 	}
+	
+	public static String URL_REST = "http://localhost:8888";
+	//public static String URL_REST = "https://kalivisabe.herokuapp.com";
 
 }
 

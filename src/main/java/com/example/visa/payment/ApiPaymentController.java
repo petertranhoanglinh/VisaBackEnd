@@ -2,6 +2,7 @@ package com.example.visa.payment;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
@@ -32,10 +33,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.visa.dto.payment.ResultVNpayDto;
 import com.example.visa.util.ConfigVNPAY;
+import com.example.visa.util.Utils;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
+
 
 
 
@@ -86,8 +89,8 @@ public class ApiPaymentController {
             } else {
                 vnp_Params.put("vnp_Locale", "vn");
             }
-            
-            vnp_Params.put("vnp_ReturnUrl", ConfigVNPAY.vnp_Returnurl); // trang wen tra ra sau khi thanh toan 
+            String url_return   = Utils.URL_REST+"/VNPAY/vnpay_ipn";
+            vnp_Params.put("vnp_ReturnUrl",url_return ); // trang wen tra ra sau khi thanh toan 
             vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
             
             Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
@@ -208,12 +211,85 @@ public class ApiPaymentController {
     
     // trang trả ra đơn hằng
     @RequestMapping(value = "VNPAY/vnpay_ipn")
-    public String statusOrder(@RequestParam(required = false) String vnp_Amount 
-            
-            , Model model){
+    public String statusOrder(@RequestParam(required = false) String vnp_Amount ,
+            @RequestParam(required = false) String vnp_BankCode,
+            @RequestParam(required = false) String vnp_BankTranNo,
+            @RequestParam(required = false) String vnp_OrderInfo,
+            @RequestParam(required = false) String vnp_PayDate,
+            @RequestParam(required = false) String vnp_ResponseCode,
+            @RequestParam(required = false) String vnp_TmnCode,
+            @RequestParam(required = false) String vnp_TransactionNo,
+            @RequestParam(required = false) String vnp_TxnRef,
+             Model model){
         try {
             
-            model.addAttribute("vnp_Amount", vnp_Amount);
+            Map<String, String> vnp_Params = new HashMap<>();
+            
+            vnp_Params.put("vnp_Amount", vnp_Amount);
+            vnp_Params.put("vnp_BankCode", vnp_BankCode);
+            vnp_Params.put("vnp_BankTranNo", vnp_BankTranNo);
+            vnp_Params.put("vnp_OrderInfo", vnp_OrderInfo);
+            vnp_Params.put("vnp_PayDate", vnp_PayDate);
+            vnp_Params.put("vnp_ResponseCode", vnp_ResponseCode);
+            vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
+            vnp_Params.put("vnp_TransactionNo", vnp_TransactionNo);
+            vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
+            
+           
+            
+          //Build data to hash and querystring
+            List fieldNames = new ArrayList(vnp_Params.keySet());
+            Collections.sort(fieldNames);
+            StringBuilder hashData = new StringBuilder();
+            StringBuilder query = new StringBuilder();
+            Iterator itr = fieldNames.iterator();
+            while (itr.hasNext()) {
+                String fieldName = (String) itr.next();
+                String fieldValue = (String) vnp_Params.get(fieldName);
+                if ((fieldValue != null) && (fieldValue.length() > 0)) {
+                    //Build hash data
+                    hashData.append(fieldName);
+                    hashData.append('=');
+                    hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
+                    //Build query
+                    query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
+                    query.append('=');
+                    query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
+                    if (itr.hasNext()) {
+                        query.append('&');
+                        hashData.append('&');
+                    }
+                }
+            }
+            String queryUrl = query.toString();
+            String vnp_SecureHash = ConfigVNPAY.hmacSHA512(ConfigVNPAY.vnp_HashSecret, hashData.toString());
+            queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
+            String paymentUrl = "https://sandbox.vnpayment.vn/tryitnow/Home/VnPayIPN" + "?" + queryUrl;
+            
+            ObjectMapper obj = new ObjectMapper();
+            obj.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            obj.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+            
+            URL urlConn = new URL(paymentUrl);
+
+            HttpURLConnection con = (HttpURLConnection) urlConn.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            con.setDoOutput(true);
+            ResultVNpayDto result= new ResultVNpayDto();
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine = null;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                    String jsonResult = response.toString();
+
+                    result = obj.readValue(jsonResult, ResultVNpayDto.class);
+                }
+            }
+            model.addAttribute("RspCode", result.getRspCode());
+            model.addAttribute("Message", result.getMessage());
+
             
         } catch (Exception e) {
             // TODO: handle exception
