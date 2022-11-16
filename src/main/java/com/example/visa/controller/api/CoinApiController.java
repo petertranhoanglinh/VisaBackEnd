@@ -1,5 +1,6 @@
 package com.example.visa.controller.api;
 
+import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
@@ -10,47 +11,50 @@ import com.example.visa.dto.coin.CoinDto;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 @Controller
 @RequestMapping("/api/basic")
 public class CoinApiController {
 
     @RequestMapping("/listCoin")
 
-    @ResponseBody public String getListCoin() {
+    @ResponseBody public Object getListCoin() {
        
         try {
             String uri = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc";
-
             URL urlConn = new URL(uri);
-
             ObjectMapper obj = new ObjectMapper();
             obj.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             obj.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-
             HttpURLConnection con = (HttpURLConnection) urlConn.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             con.setDoOutput(true);
             
             
-            CoinDto  result = new CoinDto();
+            String   result = "";
             try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
                 StringBuilder response = new StringBuilder();
                 String responseLine = null;
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
-                    String jsonResult = response.toString();
-                    result = obj.readValue(jsonResult, CoinDto.class);
                 }
+                result =response.toString();
             }
-            System.out.println(result);
-            return null;
+            List<CoinDto> listCoin = Arrays.asList(obj.readValue(result, CoinDto[].class));
+            System.out.println(listCoin.size());
+            return  listCoin; 
         } catch (Exception e) {
             // TODO: handle exception
         }
