@@ -32,16 +32,19 @@ public class CoinApiController {
 
     @RequestMapping( value = "/listCoin")
     public @ResponseBody Object getListCoin(@RequestParam(required = false) int page
-            ,@RequestParam(required = false) int len) {
+            ,@RequestParam(required = false) int len,
+            @RequestParam(required = false) String ids) {
         try {
             String uri = "https://api.coingecko.com/api/v3/coins/markets";
             Map<String, Object> params = new LinkedHashMap<>();
-            
             params.put("vs_currency", "usd");
             params.put("order", "market_cap_desc");
             params.put("per_page", len);
             params.put("page", page);
-          
+            
+            if(ids!=null) {
+                params.put("ids", ids);
+            }
             
             StringBuilder postData = new StringBuilder();
             for (Map.Entry<String, Object> param : params.entrySet()) {
