@@ -1,6 +1,7 @@
 package com.example.visa.dto.coin;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 
 public class CoinDto {
     
@@ -11,6 +12,17 @@ public class CoinDto {
     private BigDecimal market_cap;
     private String image;
     
+    private java.sql.Timestamp last_updated;
+    
+    
+
+    public String getLast_updated() {
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(last_updated);
+        return timeStamp;
+    }
+    public void setLast_updated(java.sql.Timestamp last_updated) {
+        this.last_updated = last_updated;
+    }
     public String getId() {
         return id;
     }
