@@ -16,8 +16,16 @@ public class CoinDto {
     private BigDecimal high_24h;
     private BigDecimal low_24h;
     private BigDecimal price_change_percentage_24h;
-    
-    
+    private BigDecimal fully_diluted_valuation;
+    private BigDecimal total_supply;
+    private BigDecimal max_supply;
+    private BigDecimal market_cap_change_percentage_24h;
+    private BigDecimal market_cap_change_24h;
+    private BigDecimal circulating_supply;
+    private BigDecimal ath_change_percentage;
+    private BigDecimal atl_change_percentage;
+    private BigDecimal atl;
+    private java.sql.Timestamp ath_date;
     private java.sql.Timestamp last_updated;
     
     
@@ -88,6 +96,67 @@ public class CoinDto {
     }
     public void setPrice_change_percentage_24h(BigDecimal price_change_percentage_24h) {
         this.price_change_percentage_24h = price_change_percentage_24h;
+    }
+    public BigDecimal getFully_diluted_valuation() {
+        return fully_diluted_valuation;
+    }
+    public void setFully_diluted_valuation(BigDecimal fully_diluted_valuation) {
+        this.fully_diluted_valuation = fully_diluted_valuation;
+    }
+    public BigDecimal getTotal_supply() {
+        return total_supply;
+    }
+    public void setTotal_supply(BigDecimal total_supply) {
+        this.total_supply = total_supply;
+    }
+    public BigDecimal getMax_supply() {
+        return max_supply;
+    }
+    public void setMax_supply(BigDecimal max_supply) {
+        this.max_supply = max_supply;
+    }
+    public BigDecimal getMarket_cap_change_percentage_24h() {
+        return market_cap_change_percentage_24h;
+    }
+    public void setMarket_cap_change_percentage_24h(BigDecimal market_cap_change_percentage_24h) {
+        this.market_cap_change_percentage_24h = market_cap_change_percentage_24h;
+    }
+    public BigDecimal getMarket_cap_change_24h() {
+        return market_cap_change_24h;
+    }
+    public void setMarket_cap_change_24h(BigDecimal market_cap_change_24h) {
+        this.market_cap_change_24h = market_cap_change_24h;
+    }
+    public BigDecimal getCirculating_supply() {
+        return circulating_supply;
+    }
+    public void setCirculating_supply(BigDecimal circulating_supply) {
+        this.circulating_supply = circulating_supply;
+    }
+    public BigDecimal getAth_change_percentage() {
+        return ath_change_percentage;
+    }
+    public void setAth_change_percentage(BigDecimal ath_change_percentage) {
+        this.ath_change_percentage = ath_change_percentage;
+    }
+    public BigDecimal getAtl_change_percentage() {
+        return atl_change_percentage;
+    }
+    public void setAtl_change_percentage(BigDecimal atl_change_percentage) {
+        this.atl_change_percentage = atl_change_percentage;
+    }
+    public BigDecimal getAtl() {
+        return atl;
+    }
+    public void setAtl(BigDecimal atl) {
+        this.atl = atl;
+    }
+    public String getAth_date() {
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(ath_date);
+        return timeStamp;
+    }
+    public void setAth_date(java.sql.Timestamp ath_date) {
+        this.ath_date = ath_date;
     }
     
     
