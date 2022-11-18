@@ -34,7 +34,8 @@ public class CoinApiController {
     public @ResponseBody Object getListCoin(@RequestParam(required = false) int page
             ,@RequestParam(required = false) int len,
             @RequestParam(required = false) String ids,
-            @RequestParam(required = false) String order) {
+            @RequestParam(required = false) String order,
+            @RequestParam(required = false) String price_change_percentage) {
         try {
             String uri = "https://api.coingecko.com/api/v3/coins/markets";
             Map<String, Object> params = new LinkedHashMap<>();
@@ -42,6 +43,8 @@ public class CoinApiController {
             params.put("order", order);
             params.put("per_page", len);
             params.put("page", page);
+            params.put("sparkline",false);
+            params.put("price_change_percentage", price_change_percentage);
             
             
             if(ids!=null) {
