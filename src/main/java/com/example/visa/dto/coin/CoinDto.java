@@ -11,6 +11,12 @@ public class CoinDto {
     private BigDecimal current_price;
     private BigDecimal market_cap;
     private String image;
+    private BigDecimal total_volume;
+    private BigDecimal price_change_24h;
+    private BigDecimal high_24h;
+    private BigDecimal low_24h;
+    private BigDecimal price_change_percentage_24h;
+    
     
     private java.sql.Timestamp last_updated;
     
@@ -53,6 +59,38 @@ public class CoinDto {
     public void setImage(String image) {
         this.image = image;
     }
+    public BigDecimal getTotal_volume() {
+        return total_volume;
+    }
+    public void setTotal_volume(BigDecimal total_volume) {
+        this.total_volume = total_volume;
+    }
+    public BigDecimal getPrice_change_24h() {
+        return price_change_24h;
+    }
+    public void setPrice_change_24h(BigDecimal price_change_24h) {
+        this.price_change_24h = price_change_24h;
+    }
+    public BigDecimal getHigh_24h() {
+        return high_24h;
+    }
+    public void setHigh_24h(BigDecimal high_24h) {
+        this.high_24h = high_24h;
+    }
+    public BigDecimal getLow_24h() {
+        return low_24h;
+    }
+    public void setLow_24h(BigDecimal low_24h) {
+        this.low_24h = low_24h;
+    }
+    public BigDecimal getPrice_change_percentage_24h() {
+        return price_change_percentage_24h;
+    }
+    public void setPrice_change_percentage_24h(BigDecimal price_change_percentage_24h) {
+        this.price_change_percentage_24h = price_change_percentage_24h;
+    }
+    
+    
     
     
 
