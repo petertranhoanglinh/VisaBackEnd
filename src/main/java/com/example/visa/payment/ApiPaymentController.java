@@ -61,7 +61,7 @@ public class ApiPaymentController {
             String vnp_TxnRef =  ConfigVNPAY.getRandomNumber(8);
             String vnp_IpAddr = ConfigVNPAY.getIpAddress(request);
             String vnp_TmnCode = ConfigVNPAY.vnp_TmnCode;
-            int amount = 10000 * 100; // amount *100
+            int amount = 1000 * 100; // amount *100
             
             
             Map<String, String> vnp_Params = new HashMap<>();

@@ -7,9 +7,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.visa.dao.extend.CoinDao;
 import com.example.visa.dto.coin.CoinDto;
+import com.example.visa.entity.Coin;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class CoinServiceImpl implements CoinService{
+    @Autowired CoinDao coinDao;
 
     @Override
     public List<Object> getAllCoinGecko() throws Exception {
@@ -45,6 +49,11 @@ public class CoinServiceImpl implements CoinService{
 //            }
 //        }
         return null;
+    }
+    
+    @Override
+    public void updateCoin(Coin coin) {
+        this.coinDao.save(coin);
     }
     
     

@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // TODO Auto-generated method stub
         http.cors()
-                .and().csrf().disable().authorizeRequests()
+                .and().csrf().ignoringAntMatchers("/ws/**").disable().authorizeRequests()
                 // this is url pass authencation
                 .antMatchers("/api/authenticate",
                         "/api/addUser",
@@ -61,7 +61,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/VNPAY/**",
                         "/vnpay_ipn",
                         "/api/getFacebook",
-                        "/api/basic/**")
+                        "/api/basic/**",
+                        "/chat",
+                        "/gs-guide-websocket/**")
                 .permitAll().anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
