@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/getFacebook",
                         "/api/basic/**",
                         "/chat",
-                        "/gs-guide-websocket/**,"
+                        "/gs-guide-websocket/**"
                        ,"/gs-guide-websocket**")
                 .permitAll().anyRequest().authenticated()
                 .and().sessionManagement()
