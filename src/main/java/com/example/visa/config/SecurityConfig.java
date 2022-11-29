@@ -64,7 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/basic/**",
                         "/chat",
                         "/gs-guide-websocket/**"
-                       ,"/gs-guide-websocket*//**")
+                       ,"/gs-guide-websocket*//**",
+                        "/gs-guide-websocket/**/**/**")
                 .permitAll().anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
