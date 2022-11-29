@@ -26,6 +26,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,7 +52,8 @@ public class ApiPaymentController {
             value = "/VNPAY",
             produces = MediaType.TEXT_PLAIN_VALUE
         )
-    @ResponseBody  public ResponseEntity<Object> vnPay(HttpServletRequest request){
+    @ResponseBody  public ResponseEntity<Object> vnPay(HttpServletRequest request
+            ,@RequestParam(required = false) String vnp_CreateDate){
         try {
             // property 
             String vnp_Version = "2.1.0";
@@ -96,11 +98,10 @@ public class ApiPaymentController {
             Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
             
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-            String vnp_CreateDate = formatter.format(cld.getTime());
-            
+            if(vnp_CreateDate != null) {
+                vnp_CreateDate = formatter.format(cld.getTime());
+            }
             System.out.println(vnp_CreateDate);
-            
-            
             vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
             cld.add(Calendar.MINUTE, 15);
             String vnp_ExpireDate = formatter.format(cld.getTime());
