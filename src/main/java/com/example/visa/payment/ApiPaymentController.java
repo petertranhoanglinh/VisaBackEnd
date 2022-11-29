@@ -98,7 +98,7 @@ public class ApiPaymentController {
             Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
             
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-            if(vnp_CreateDate != null) {
+            if(vnp_CreateDate == null) {
                 vnp_CreateDate = formatter.format(cld.getTime());
             }
             System.out.println(vnp_CreateDate);
