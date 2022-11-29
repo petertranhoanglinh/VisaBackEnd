@@ -98,6 +98,8 @@ public class ApiPaymentController {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
             String vnp_CreateDate = formatter.format(cld.getTime());
             
+            System.out.println(vnp_CreateDate);
+            
             
             vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
             cld.add(Calendar.MINUTE, 15);
