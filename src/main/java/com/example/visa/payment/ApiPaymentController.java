@@ -20,19 +20,20 @@ import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.visa.dto.payment.ResultVNpayDto;
+import com.example.visa.service.data.GetDataUrl;
 import com.example.visa.util.ConfigVNPAY;
 import com.example.visa.util.Utils;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -45,7 +46,7 @@ import com.google.gson.JsonObject;
 
 @Controller
 public class ApiPaymentController {
-    
+    @Autowired GetDataUrl getUrlData;
     // thanh toán
     @RequestMapping(
             method = RequestMethod.GET,
@@ -226,8 +227,7 @@ public class ApiPaymentController {
              Model model){
         try {
             
-            Map<String, String> vnp_Params = new HashMap<>();
-            
+            Map<String, Object> vnp_Params = new HashMap<>();
             vnp_Params.put("vnp_Amount", vnp_Amount);
             vnp_Params.put("vnp_BankCode", vnp_BankCode);
             vnp_Params.put("vnp_BankTranNo", vnp_BankTranNo);
@@ -237,59 +237,12 @@ public class ApiPaymentController {
             vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
             vnp_Params.put("vnp_TransactionNo", vnp_TransactionNo);
             vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-            
-           
-            
-          //Build data to hash and querystring
-            List fieldNames = new ArrayList(vnp_Params.keySet());
-            Collections.sort(fieldNames);
             StringBuilder hashData = new StringBuilder();
-            StringBuilder query = new StringBuilder();
-            Iterator itr = fieldNames.iterator();
-            while (itr.hasNext()) {
-                String fieldName = (String) itr.next();
-                String fieldValue = (String) vnp_Params.get(fieldName);
-                if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                    //Build hash data
-                    hashData.append(fieldName);
-                    hashData.append('=');
-                    hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                    //Build query
-                    query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
-                    query.append('=');
-                    query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                    if (itr.hasNext()) {
-                        query.append('&');
-                        hashData.append('&');
-                    }
-                }
-            }
-            String queryUrl = query.toString();
             String vnp_SecureHash = ConfigVNPAY.hmacSHA512(ConfigVNPAY.vnp_HashSecret, hashData.toString());
-            queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
-            String paymentUrl = "https://sandbox.vnpayment.vn/tryitnow/Home/VnPayIPN" + "?" + queryUrl;
-            
-            ObjectMapper obj = new ObjectMapper();
-            obj.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            obj.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-            
-            URL urlConn = new URL(paymentUrl);
-
-            HttpURLConnection con = (HttpURLConnection) urlConn.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            con.setDoOutput(true);
-            ResultVNpayDto result= new ResultVNpayDto();
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-                StringBuilder response = new StringBuilder();
-                String responseLine = null;
-                while ((responseLine = br.readLine()) != null) {
-                    response.append(responseLine.trim());
-                    String jsonResult = response.toString();
-
-                    result = obj.readValue(jsonResult, ResultVNpayDto.class);
-                }
-            }
+            vnp_Params.put("vnp_SecureHash", vnp_SecureHash);
+          //Build data to hash and querystring
+            String uri = "https://sandbox.vnpayment.vn/tryitnow/Home/VnPayIPN";
+            ResultVNpayDto result= (ResultVNpayDto) this.getUrlData.getListDataUri(vnp_Params, uri);
             model.addAttribute("RspCode", result.getRspCode());
             model.addAttribute("Message", result.getMessage());
 
