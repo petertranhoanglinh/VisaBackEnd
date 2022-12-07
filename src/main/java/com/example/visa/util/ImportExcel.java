@@ -24,11 +24,8 @@ public class ImportExcel<T> {
         DataExcelHandel dataexcel = new DataExcelHandel(column);
         if(!excel.getFileData().isEmpty()) {
             Workbook workbook = getWorkbook(excel.getFileData().getInputStream(), excelFile);
-            
             Sheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rowInterator = sheet.iterator();
-            Row headerRow = rowInterator.next();
-            
             while (rowInterator.hasNext()) {
                 Row row = rowInterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
