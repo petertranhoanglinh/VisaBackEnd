@@ -17,7 +17,7 @@ public class SchedulingService {
 	@Async
 	@Scheduled(fixedDelay = 1000*60*60)
 	public void scheduleFixedDelayTask() throws Exception {
-		this.coin.joinListCoin(1,100, null, "market_cap_desc", null);
+		//this.coin.joinListCoin(1,100, null, "market_cap_desc", null);
 	    System.out.println("Lịch làm việc đang chạy");
 	}
 }
