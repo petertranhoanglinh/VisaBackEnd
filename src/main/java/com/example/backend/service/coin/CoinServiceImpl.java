@@ -1,21 +1,14 @@
 package com.example.backend.service.coin;
 
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import com.example.backend.dao.extend.CoinDao;
-import com.example.backend.dto.coin.CoinDto;
 import com.example.backend.entity.Coin;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.backend.model.extend.CoinModel;
+
 
 
 @Service
@@ -54,6 +47,12 @@ public class CoinServiceImpl implements CoinService{
     @Override
     public void updateCoin(Coin coin) {
         this.coinDao.save(coin);
+    }
+
+    @Override
+    public List<CoinModel> getRate7days(int page) {
+        // TODO Auto-generated method stub
+        return this.coinDao.getAvgCoinLog7d(PageRequest.of(page, 4));
     }
     
     

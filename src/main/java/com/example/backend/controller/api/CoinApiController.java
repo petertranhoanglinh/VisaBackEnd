@@ -1,7 +1,10 @@
 package com.example.backend.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -93,6 +96,17 @@ public class CoinApiController {
                
             }
             return 0;
+    }
+    
+    @GetMapping("/rate7day/{page}")
+    public ResponseEntity<?> getRate7day(@PathVariable int page){
+        try {
+            return ResponseEntity.ok(this.coinService.getRate7days( page - 1));
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
 }

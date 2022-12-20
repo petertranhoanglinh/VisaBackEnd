@@ -51,8 +51,8 @@ public class Utils {
 
 	}
 	
-	public static String URL_REST = "http://localhost:8888";
-	//public static String URL_REST = "https://kalivisabe.herokuapp.com";
+	public static String URL_REST = "http://localhost:6164";
+	//public static String URL_REST = "https://visabackend-production.up.railway.app";
 
 }
 
