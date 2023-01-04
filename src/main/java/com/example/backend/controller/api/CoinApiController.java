@@ -73,9 +73,6 @@ public class CoinApiController {
                         } catch (Exception e) {
                             if(!fail.contains(key)){
                                 fail.add(key);
-                                System.out.println(key + "--" +e.getMessage());
-                                System.out.println("----------------------------------------");
-                                System.out.println("----------------------------------------");
                             }
                            
                         }
@@ -87,7 +84,6 @@ public class CoinApiController {
                 int i = 0;
                 for(Coin coin: reponse) {
                     this.coinService.updateCoin(coin);
-                    System.out.println(i++);
                 }
                 return reponse;
             } catch (Exception e) {

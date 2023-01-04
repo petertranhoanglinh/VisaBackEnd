@@ -2,19 +2,33 @@ server:
   port: 6164
 #database
 spring:
+
+  jmx: 
+     enabled : false
+     
+  main:
+    lazy-initialization : true
+    
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://containers-us-west-82.railway.app:7607/bankend
     username: postgres
     password: na5aaXoiMDOGKzT0idaA 
   jpa:
-    show-sql: true
+    show-sql: false # nâng cao hiệu suất java 
     generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+      
     properties:
-      database-platform: org.hibernate.dialect.PostgreSQLDialect
+       hibernate:
+        cache:
+          use_second_level_cache: false
+          use_query_cache: false
+       database-platform: org.hibernate.dialect.PostgreSQLDialect
+      
     database: postgresql
+   
 #router
 
 
