@@ -6,7 +6,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://containers-us-west-82.railway.app:7607/bankend
     username: postgres
-    password: WLm3XHGe34szFAQQis6A
+    password: na5aaXoiMDOGKzT0idaA 
   jpa:
     show-sql: true
     generate-ddl: true
