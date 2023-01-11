@@ -1,6 +1,7 @@
 package com.example.backend.controller.consumer;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -108,7 +109,7 @@ public class ConsumerController {
             ImportExcelDto excelDto = new ImportExcelDto();
             excelDto.setFileData(file);
             String  []  header = { "name", "mobile" , "address" };
-            LinkedHashMap<String, Object>  dataExcel = this.getImportExcel.getExceltoListData(excelDto, header);
+           List<LinkedHashMap<String, Object> >  dataExcel = this.getImportExcel.getExceltoListData(excelDto, header);
             return  ResponseEntity.ok(dataExcel);
         } catch (Exception e) {
             // TODO: handle exception
