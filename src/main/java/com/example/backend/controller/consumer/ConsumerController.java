@@ -1,17 +1,24 @@
 package com.example.backend.controller.consumer;
 
+import java.util.LinkedHashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.backend.dto.consumer.ConsumerDto;
+import com.example.backend.dto.util.DataExcelHandel;
+import com.example.backend.dto.util.ImportExcelDto;
 import com.example.backend.service.consumer.ConsumerService;
+import com.example.backend.util.ImportExcel;
 import com.example.backend.util.MessegeStatus;
 import com.example.backend.util.Utils;
 
@@ -20,6 +27,8 @@ import com.example.backend.util.Utils;
 public class ConsumerController {
     @Autowired
     ConsumerService service;
+    @Autowired
+    ImportExcel getImportExcel;
 
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody ConsumerDto dto) {
@@ -91,6 +100,20 @@ public class ConsumerController {
 			// TODO: handle exception
 			return null;
 		}
+    }
+    
+    @PostMapping(value = "/importExcel")
+    public ResponseEntity<?> addDataByExcel(MultipartFile file){
+        try {
+            ImportExcelDto excelDto = new ImportExcelDto();
+            excelDto.setFileData(file);
+            String  []  header = { "name", "mobile" , "address" };
+            LinkedHashMap<String, Object>  dataExcel = this.getImportExcel.getExceltoListData(excelDto, header);
+            return  ResponseEntity.ok(dataExcel);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return null;
     }
 
 }
