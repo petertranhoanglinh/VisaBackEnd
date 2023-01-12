@@ -104,13 +104,43 @@ public class ConsumerController {
     }
     
     @PostMapping(value = "/importExcel")
-    public ResponseEntity<?> addDataByExcel(MultipartFile file){
+    public ResponseEntity<?> addDataByExcel(MultipartFile file) {
+        int result = 0;
         try {
-            ImportExcelDto excelDto = new ImportExcelDto();
-            excelDto.setFileData(file);
-            String  []  header = { "name", "mobile" , "address" };
-           List<LinkedHashMap<String, Object> >  dataExcel = this.getImportExcel.getExceltoListData(excelDto, header);
-            return  ResponseEntity.ok(dataExcel);
+            if (!Utils.isAdmin()) {
+                return ResponseEntity.ok(new MessegeStatus("Only admin can register", "0000"));
+            } else {
+                ConsumerDto dto = new ConsumerDto();
+                ImportExcelDto excelDto = new ImportExcelDto();
+                excelDto.setFileData(file);
+                String[] header = { "name", "mobile", "address", "email"};
+                List<LinkedHashMap<String, Object>> dataExcel = this.getImportExcel.getExceltoListData(excelDto,
+                        header);
+                for (LinkedHashMap<String, Object> linkedHashMap : dataExcel) {
+                    for (int i = 0; i < header.length; i++) {
+                        if (header[i].equals("name")) {
+                            dto.setName(linkedHashMap.get(header[i]).toString());
+                        }
+                        if (header[i].equals("mobile")) {
+                            dto.setMobile(linkedHashMap.get(header[i]).toString());
+                        }
+                        if (header[i].equals("address")) {
+                            dto.setAddress(linkedHashMap.get(header[i]).toString());
+                        }
+                        if (header[i].equals("email")) {
+                            dto.setEmail(linkedHashMap.get(header[i]).toString());
+                        }
+                    }
+                    result = this.service.callConsumerSP(dto);
+                   
+                }
+                if (result != 1 && result != 2 && result != 3) {
+                    return ResponseEntity.ok(new MessegeStatus(dto.getName() + " saveFail " , "0003"));
+                }
+                return ResponseEntity.ok(new MessegeStatus("save by import suscess", "0001"));
+
+            }
+
         } catch (Exception e) {
             // TODO: handle exception
         }
