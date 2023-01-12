@@ -6,6 +6,8 @@ public class ConsumerDto {
     private String address;
     private String mobile;
     private String email;
+    private String taxCode;
+    private String comName;
 
     public String getName() {
         return name;
@@ -46,5 +48,22 @@ public class ConsumerDto {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getTaxCode() {
+        return taxCode;
+    }
+
+    public void setTaxCode(String taxCode) {
+        this.taxCode = taxCode;
+    }
+
+    public String getComName() {
+        return comName;
+    }
+
+    public void setComName(String comName) {
+        this.comName = comName;
+    }
+    
 
 }

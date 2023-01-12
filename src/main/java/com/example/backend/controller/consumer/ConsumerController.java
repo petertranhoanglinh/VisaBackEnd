@@ -34,7 +34,6 @@ public class ConsumerController {
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody ConsumerDto dto) {
         try {
-            
             if(!Utils.isAdmin()) {
                 return ResponseEntity.ok(new MessegeStatus("Only admin can register", "0000"));
             }
@@ -113,7 +112,7 @@ public class ConsumerController {
                 ConsumerDto dto = new ConsumerDto();
                 ImportExcelDto excelDto = new ImportExcelDto();
                 excelDto.setFileData(file);
-                String[] header = { "name", "mobile", "address", "email"};
+                String[] header = { "name", "mobile", "address", "email" ,"tax_code","com_name"};
                 List<LinkedHashMap<String, Object>> dataExcel = this.getImportExcel.getExceltoListData(excelDto,
                         header);
                 for (LinkedHashMap<String, Object> linkedHashMap : dataExcel) {
@@ -129,6 +128,12 @@ public class ConsumerController {
                         }
                         if (header[i].equals("email")) {
                             dto.setEmail(linkedHashMap.get(header[i]).toString());
+                        }
+                        if (header[i].equals("tax_code")) {
+                            dto.setTaxCode(linkedHashMap.get(header[i]).toString());
+                        }
+                        if (header[i].equals("com_name")) {
+                            dto.setComName(linkedHashMap.get(header[i]).toString());
                         }
                     }
                     result = this.service.callConsumerSP(dto);

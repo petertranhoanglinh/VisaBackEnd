@@ -22,7 +22,7 @@ public class ConsumerServiceImpl implements ConsumerService {
         String workUser = Utils.getUserDetail().getUsername();
         // TODO Auto-generated method stub
         return this.dao.callConsumerSP(dto.getId(), dto.getName(),
-                dto.getAddress(), dto.getMobile(), dto.getEmail(), workUser);
+                dto.getAddress(), dto.getMobile(), dto.getEmail(), dto.getTaxCode(),dto.getComName(), workUser);
     }
 
     @Override

@@ -13,8 +13,8 @@ import com.example.backend.model.ConsumerModel;
 @Repository
 public interface ConsumerDao extends JpaRepository<Users, String> {
 
-    @Query(value = "CALL CONSUMER_SP(:id,:name,:address,:mobile,:email , :workUser,0)", nativeQuery = true)
-    public int callConsumerSP(long id, String name, String address, String mobile, String email,
+    @Query(value = "CALL CONSUMER_SP(:id,:name,:address,:mobile,:email ,:taxCode, :comName, :workUser,0)", nativeQuery = true)
+    public int callConsumerSP(long id, String name, String address, String mobile, String email, String taxCode, String comName,
             String workUser);
 
     @Query(value = "SELECT A.ID AS id                                          "
