@@ -20,9 +20,15 @@ import com.example.backend.dto.util.DataExcelHandel;
 import com.example.backend.dto.util.ImportExcelDto;
 
 @Component
-public class ImportExcel<T> {
+public class ImportExcel{
+    private String originalFilename;
+
+
+
+    @SuppressWarnings("deprecation")
     public List<LinkedHashMap<String, Object>>  getExceltoListData(ImportExcelDto excel, String [] column) throws Exception{
-        String excelFile = excel.getFileData().getOriginalFilename().toString();
+        originalFilename = excel.getFileData().getOriginalFilename();
+        String excelFile = originalFilename.toString();
         List<LinkedHashMap<String, Object>> listdata  = new ArrayList<>();
         
         if(!excel.getFileData().isEmpty()) {
@@ -43,6 +49,7 @@ public class ImportExcel<T> {
                     
                     Cell cell = cellIterator.next();
                     
+                    @SuppressWarnings("unused")
                     CellType cellType = cell.getCellType();
                     
                     cell.setCellType(CellType.STRING);
