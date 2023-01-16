@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -102,8 +103,8 @@ public class ConsumerController {
 		}
     }
     
-    @PostMapping(value = "/importExcel")
-    public ResponseEntity<?> addDataByExcel(MultipartFile file) {
+    @PostMapping(value = "/importExcel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> addDataByExcel(@RequestBody MultipartFile file) {
         int result = 0;
         try {
             if (!Utils.isAdmin()) {
@@ -148,6 +149,7 @@ public class ConsumerController {
 
         } catch (Exception e) {
             // TODO: handle exception
+            System.out.println(e.getMessage());
         }
         return null;
     }
