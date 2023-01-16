@@ -140,7 +140,7 @@ public class ConsumerController {
                     result = this.service.callConsumerSP(dto);
                    
                 }
-                if (result != 1 && result != 2 && result != 3) {
+                if (result != 1 && result != 2 && result != 3 && result != 0) {
                     return ResponseEntity.ok(new MessegeStatus(dto.getName() + " saveFail " , "0003"));
                 }
                 return ResponseEntity.ok(new MessegeStatus("save by import suscess", "0001"));
