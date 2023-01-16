@@ -14,4 +14,8 @@ public interface ConsumerModel {
     public String getEmail();
 
     public String getAddress();
+    
+    public String getTaxCode();
+    
+    public String getComName();
 }

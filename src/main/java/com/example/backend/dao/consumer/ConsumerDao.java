@@ -24,6 +24,8 @@ public interface ConsumerDao extends JpaRepository<Users, String> {
             + "                   , (B.username || ' ' || A.work_User) as workUser "
             + "                   , A.email as email                           "
             + "                   , Work_Date as workDate                      "
+            + "                   , tax_code as taxCode                        "
+            + "                   , com_name as comName                        "
             + "                from Consumer A , users B                       "
             + "               where A.work_user = B.userId                     "
             + "                 and A.mobile like :mobile                         "
