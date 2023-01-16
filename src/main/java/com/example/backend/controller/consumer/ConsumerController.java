@@ -119,22 +119,22 @@ public class ConsumerController {
                 for (LinkedHashMap<String, Object> linkedHashMap : dataExcel) {
                     for (int i = 0; i < header.length; i++) {
                         if (header[i].equals("name")) {
-                            dto.setName(linkedHashMap.get(header[i]).toString());
+                            dto.setName(linkedHashMap.get(header[i])==null?"":linkedHashMap.get(header[i]).toString());
                         }
                         if (header[i].equals("mobile")) {
-                            dto.setMobile(linkedHashMap.get(header[i]).toString());
+                            dto.setMobile(linkedHashMap.get(header[i])==null?"":linkedHashMap.get(header[i]).toString());
                         }
                         if (header[i].equals("address")) {
-                            dto.setAddress(linkedHashMap.get(header[i]).toString());
+                            dto.setAddress(linkedHashMap.get(header[i])==null?"":linkedHashMap.get(header[i]).toString());
                         }
                         if (header[i].equals("email")) {
-                            dto.setEmail(linkedHashMap.get(header[i]).toString());
+                            dto.setEmail(linkedHashMap.get(header[i])==null?"":linkedHashMap.get(header[i]).toString());
                         }
                         if (header[i].equals("tax_code")) {
-                            dto.setTaxCode(linkedHashMap.get(header[i]).toString());
+                            dto.setTaxCode(linkedHashMap.get(header[i])==null?"":linkedHashMap.get(header[i]).toString());
                         }
                         if (header[i].equals("com_name")) {
-                            dto.setComName(linkedHashMap.get(header[i]).toString());
+                            dto.setComName(linkedHashMap.get(header[i])==null?"":linkedHashMap.get(header[i]).toString());
                         }
                     }
                     result = this.service.callConsumerSP(dto);
@@ -150,8 +150,9 @@ public class ConsumerController {
         } catch (Exception e) {
             // TODO: handle exception
             System.out.println(e.getMessage());
+            return null;
         }
-        return null;
+        
     }
 
 }
