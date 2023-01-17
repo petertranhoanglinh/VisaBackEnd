@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.backend.config.MyUserDetail;
 import com.example.backend.dto.login.AuthencationRequest;
 import com.example.backend.dto.login.AuthencationResponse;
+import com.example.backend.dto.users.UserDto;
 import com.example.backend.model.UserModel;
 import com.example.backend.service.login.CustomUserDetails;
 import com.example.backend.service.system.StorageService;
@@ -130,6 +131,35 @@ public class LoginController {
     public  ResponseEntity<?> addFaceBook(){
         try {
             return ResponseEntity.ok(this.userSerivece.getFacebook());
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    
+    @PostMapping(value = "api/uploadProfile")
+    public  ResponseEntity<?> uploadProfile(@RequestBody UserDto userDto){
+        try {
+            // upload image file
+            if(!userDto.getImgData().isEmpty()) {
+                String fileName = storageService.store(userDto.getImgData(), "user");
+                if(!userDto.getImgOldName().equals("")) {
+                    storageService.delete(userDto.getImgOldName(), "user");
+                }
+                userDto.setPhoto("/upload/user/" +fileName);
+                userDto.setUserId(Utils.getUserDetail().getUsername());
+            }
+            int check = this.userSerivece.callUserProfilePkSp(userDto);
+            
+            switch (check) {
+                case 1:
+                    return ResponseEntity.ok(new MessegeStatus("Update User Suscess", "0001")); 
+                default:
+                    return ResponseEntity.ok(new MessegeStatus("Update User Eror", "0001"));
+               
+            }
+            
         } catch (Exception e) {
             // TODO: handle exception
             System.out.println(e.getMessage());

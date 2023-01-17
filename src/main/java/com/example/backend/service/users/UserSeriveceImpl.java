@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.backend.dao.users.UserDao;
+import com.example.backend.dto.users.UserDto;
 import com.example.backend.model.UserModel;
 import com.example.backend.util.MessegeStatus;
 
@@ -54,6 +55,11 @@ public class UserSeriveceImpl implements UserSerivece {
     public List<UserModel> getFacebook() {
         // TODO Auto-generated method stub
         return this.userDao.getfacebook();
+    }
+    @Override
+    public int callUserProfilePkSp(UserDto user) {
+        return this.userDao.call_USER_PROFILE_PK_SP(user.getUserId(), user.getEmail(), user.getAddr(),
+                user.getPassword(), user.getPhone(), user.getPhoto(), user.getUserName());
     }
 
 }

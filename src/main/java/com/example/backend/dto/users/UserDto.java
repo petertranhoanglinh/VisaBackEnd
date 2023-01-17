@@ -12,31 +12,34 @@ public class UserDto implements Serializable {
     private String password;
 
     private String userName;
+    
+    private String menuCd;
+    private String photo;
+    private String email;
+    private String addr;
+    private String phone;
+    private String description;
+    private String imgOldName;
+    
 
-    private String ctrId;
 
-    private String rankCd;
+
+
+    public String getImgOldName() {
+        return imgOldName;
+    }
+
+    public void setImgOldName(String imgOldName) {
+        this.imgOldName = imgOldName;
+    }
 
     private String role;
 
-    private String refferralCode;
-
-    private int rate;
-
     private MultipartFile imgData;
 
-    private String imageFileNameOld;
 
     public static long getSerialversionuid() {
         return serialVersionUID;
-    }
-
-    public String getImageFileNameOld() {
-        return imageFileNameOld;
-    }
-
-    public void setImageFileNameOld(String imageFileNameOld) {
-        this.imageFileNameOld = imageFileNameOld;
     }
 
     public MultipartFile getImgData() {
@@ -67,26 +70,6 @@ public class UserDto implements Serializable {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getCtrId() {
-        return ctrId;
-    }
-
-    public void setCtrId(String ctrId) {
-        this.ctrId = ctrId;
-    }
-
-    public String getRankCd() {
-        return rankCd;
-    }
-
-    public void setRankCd(String rankCd) {
-        this.rankCd = rankCd;
-    }
-
     public String getRole() {
         return role;
     }
@@ -95,20 +78,60 @@ public class UserDto implements Serializable {
         this.role = role;
     }
 
-    public String getRefferralCode() {
-        return refferralCode;
+    public String getMenuCd() {
+        return menuCd;
     }
 
-    public void setRefferralCode(String refferralCode) {
-        this.refferralCode = refferralCode;
+    public void setMenuCd(String menuCd) {
+        this.menuCd = menuCd;
     }
 
-    public int getRate() {
-        return rate;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setRate(int i) {
-        this.rate = i;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddr() {
+        return addr;
+    }
+
+    public void setAddr(String addr) {
+        this.addr = addr;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    
+    
+
+
 
 }
