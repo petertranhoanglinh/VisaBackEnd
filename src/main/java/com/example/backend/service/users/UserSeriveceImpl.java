@@ -60,6 +60,8 @@ public class UserSeriveceImpl implements UserSerivece {
     public int callUserProfilePkSp(UserDto user) {
         if(!user.getPassword().equals("") || !user.getPassword().equals("********")) {
             user.setPassword( new BCryptPasswordEncoder().encode(user.getPassword()));
+        }else {
+            user.setPassword("");
         }
         return this.userDao.call_USER_PROFILE_PK_SP(user.getUserId(), user.getAddr(),
                 user.getPassword(), user.getPhone(), user.getPhoto(), user.getUserName());
