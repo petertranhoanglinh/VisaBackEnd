@@ -1,12 +1,14 @@
 package com.example.backend.controller.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -138,8 +140,8 @@ public class LoginController {
         }
     }
     
-    @PostMapping(value = "api/uploadProfile")
-    public  ResponseEntity<?> uploadProfile(@RequestBody UserDto userDto){
+    @PostMapping(value = "api/uploadProfile" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public  ResponseEntity<?> uploadProfile(@ModelAttribute UserDto userDto){
         try {
             // upload image file
             if(!userDto.getImgData().isEmpty()) {
@@ -156,7 +158,7 @@ public class LoginController {
                 case 1:
                     return ResponseEntity.ok(new MessegeStatus("Update User Suscess", "0001")); 
                 default:
-                    return ResponseEntity.ok(new MessegeStatus("Update User Eror", "0001"));
+                    return ResponseEntity.ok(new MessegeStatus("Update User Eror", "0000"));
                
             }
             

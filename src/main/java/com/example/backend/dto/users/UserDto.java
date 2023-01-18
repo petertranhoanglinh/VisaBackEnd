@@ -20,6 +20,9 @@ public class UserDto implements Serializable {
     private String phone;
     private String description;
     private String imgOldName;
+    private String role;
+    private MultipartFile imgData;
+
     
 
 
@@ -33,9 +36,6 @@ public class UserDto implements Serializable {
         this.imgOldName = imgOldName;
     }
 
-    private String role;
-
-    private MultipartFile imgData;
 
 
     public static long getSerialversionuid() {
