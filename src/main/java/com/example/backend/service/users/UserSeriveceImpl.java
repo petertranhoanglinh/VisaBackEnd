@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import com.example.backend.dao.users.UserDao;
 import com.example.backend.dto.users.UserDto;
 import com.example.backend.model.UserModel;
+import com.example.backend.service.system.StorageService;
 import com.example.backend.util.MessegeStatus;
+import com.example.backend.util.Utils;
 
 @Service
 public class UserSeriveceImpl implements UserSerivece {
@@ -17,6 +19,9 @@ public class UserSeriveceImpl implements UserSerivece {
     String StrRequestFail = "Register account fail by email has used";
     @Autowired
     UserDao userDao;
+    
+    @Autowired
+    StorageService storageService;
     
     @Override
     public UserModel getByUser(String userId) {
@@ -63,6 +68,18 @@ public class UserSeriveceImpl implements UserSerivece {
         }else {
             user.setPassword("");
         }
+        // upload image file
+        if(user.getImgData() != null) {
+            String fileName = storageService.store(user.getImgData(), "user");
+            if(!user.getImgOldName().equals("")) {
+                storageService.delete(user.getImgOldName(), "user");
+            }
+            user.setPhoto("upload/user/" +fileName);
+        }else {
+            user.setPhoto("upload/user/" +user.getImgOldName());
+        }
+        
+        user.setUserId(Utils.getUserDetail().getUsername());
         return this.userDao.call_USER_PROFILE_PK_SP(user.getUserId(), user.getAddr(),
                 user.getPassword(), user.getPhone(), user.getPhoto(), user.getUserName());
     }

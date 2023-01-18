@@ -143,19 +143,8 @@ public class LoginController {
     @PostMapping(value = "api/uploadProfile" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public  ResponseEntity<?> uploadProfile(@ModelAttribute UserDto userDto){
         try {
-            // upload image file
-            if(userDto.getImgData() != null) {
-                String fileName = storageService.store(userDto.getImgData(), "user");
-                if(!userDto.getImgOldName().equals("")) {
-                    storageService.delete(userDto.getImgOldName(), "user");
-                }
-                userDto.setPhoto("upload/user/" +fileName);
-            }else {
-                userDto.setPhoto("upload/user/" +userDto.getImgOldName());
-            }
-            userDto.setUserId(Utils.getUserDetail().getUsername());
+           
             int check = this.userSerivece.callUserProfilePkSp(userDto);
-            
             switch (check) {
                 case 1:
                     return ResponseEntity.ok(new MessegeStatus("Update User Suscess", "0001")); 
