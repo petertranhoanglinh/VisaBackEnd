@@ -63,9 +63,9 @@ public interface UserDao extends JpaRepository<Users, String> {
                         , nativeQuery = true)
         public List<UserModel> getfacebook();
         
-        @Query(value = "CALL USER_PROFILE_PK_SP(:userid,:email,:address,:password,:phone,"
+        @Query(value = "CALL USER_PROFILE_PK_SP(:userid,:address,:password,:phone,"
                 + " :photo, :username, 0)", nativeQuery = true)
-        public int call_USER_PROFILE_PK_SP(String userid, String email , String address,
+        public int call_USER_PROFILE_PK_SP(String userid, String address,
                 String password, String phone, String photo, String username);
         
 

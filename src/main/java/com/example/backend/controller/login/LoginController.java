@@ -144,14 +144,16 @@ public class LoginController {
     public  ResponseEntity<?> uploadProfile(@ModelAttribute UserDto userDto){
         try {
             // upload image file
-            if(!userDto.getImgData().isEmpty()) {
+            if(userDto.getImgData() != null) {
                 String fileName = storageService.store(userDto.getImgData(), "user");
                 if(!userDto.getImgOldName().equals("")) {
                     storageService.delete(userDto.getImgOldName(), "user");
                 }
                 userDto.setPhoto("upload/user/" +fileName);
-                userDto.setUserId(Utils.getUserDetail().getUsername());
+            }else {
+                userDto.setPhoto("upload/user/" +userDto.getImgOldName());
             }
+            userDto.setUserId(Utils.getUserDetail().getUsername());
             int check = this.userSerivece.callUserProfilePkSp(userDto);
             
             switch (check) {
