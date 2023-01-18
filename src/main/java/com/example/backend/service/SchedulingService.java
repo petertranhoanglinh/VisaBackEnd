@@ -10,7 +10,7 @@ import com.example.backend.controller.api.CoinApiController;
 
 @Configuration
 @EnableScheduling
-public class SchedulingService {
+public class SchedulingService {    
 	//lên lịch làm việc
 	
 	@Autowired CoinApiController coin;
