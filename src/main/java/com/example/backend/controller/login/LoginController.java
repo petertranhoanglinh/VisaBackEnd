@@ -149,7 +149,7 @@ public class LoginController {
                 if(!userDto.getImgOldName().equals("")) {
                     storageService.delete(userDto.getImgOldName(), "user");
                 }
-                userDto.setPhoto("/upload/user/" +fileName);
+                userDto.setPhoto("upload/user/" +fileName);
                 userDto.setUserId(Utils.getUserDetail().getUsername());
             }
             int check = this.userSerivece.callUserProfilePkSp(userDto);
