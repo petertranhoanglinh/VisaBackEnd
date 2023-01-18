@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.backend.dao.users.UserDao;
 import com.example.backend.dto.users.UserDto;
+import com.example.backend.model.MenuModel;
 import com.example.backend.model.UserModel;
 import com.example.backend.service.system.StorageService;
 import com.example.backend.util.MessegeStatus;
@@ -83,5 +84,13 @@ public class UserSeriveceImpl implements UserSerivece {
         return this.userDao.call_USER_PROFILE_PK_SP(user.getUserId(), user.getAddr(),
                 user.getPassword(), user.getPhone(), user.getPhoto(), user.getUserName());
     }
+    @Override
+    public List<MenuModel>   getListMenuByUser(){
+        return this.userDao.getListMenuByUser(Utils.getUserDetail().getUser().getMenuCd());
+        
+    }
+    
+    //MY PROGRAM SCREEN
+    
 
 }

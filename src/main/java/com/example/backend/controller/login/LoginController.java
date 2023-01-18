@@ -159,5 +159,16 @@ public class LoginController {
             return null;
         }
     }
+    
+    @GetMapping(value = "/api/getMenu")
+    public  ResponseEntity<?> getMenu(){
+        try {
+            return ResponseEntity.ok(this.userSerivece.getListMenuByUser());
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
  
 }

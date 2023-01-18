@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.backend.entity.Users;
+import com.example.backend.model.MenuModel;
 import com.example.backend.model.UserModel;
 
 @Repository
@@ -25,6 +26,7 @@ public interface UserDao extends JpaRepository<Users, String> {
                         + "          , address       as address     "
                         + "          , phone         as phone       "
                         + "          , email         as email       "
+                        + "          , menu_cd         as menuCd    "
                         + "       FROM USERS                        "
                         + "      WHERE (USERID =:userId             "
                         + "         OR EMAIL  =:userId)             "
@@ -68,5 +70,10 @@ public interface UserDao extends JpaRepository<Users, String> {
         public int call_USER_PROFILE_PK_SP(String userid, String address,
                 String password, String phone, String photo, String username);
         
+        
+        @Query(value = "select * from menu where use_yn = 'Y' "
+                + "        and  menu_cd =:menuCd              "
+                + "   order by  menu_lv , sort_no", nativeQuery = true)
+        public List<MenuModel>   getListMenuByUser(String menuCd);
 
 }

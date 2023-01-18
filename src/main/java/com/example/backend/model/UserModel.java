@@ -16,5 +16,7 @@ public interface UserModel {
 	public String getPhoto();
 
 	public String getPhone();
+	
+	public String getMenuCd();
 
 }
