@@ -13,7 +13,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://containers-us-west-82.railway.app:7607/bankend
     username: postgres
-    password: na5aaXoiMDOGKzT0idaA 
+    password: yXM2Xm2jlfnCsLuvwGng 
   jpa:
     show-sql: false # nâng cao hiệu suất java 
     generate-ddl: true
