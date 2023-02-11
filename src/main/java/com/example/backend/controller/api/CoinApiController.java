@@ -63,7 +63,6 @@ public class CoinApiController {
             try {
                 fail.add("");
                 List<Coin> reponse = new ArrayList<Coin>();
-                int count = 0;
                 List< LinkedHashMap<String, Object>> objectData = (List< LinkedHashMap<String, Object>>) this.getListCoin(page, len, ids, order, price_change_percentage);   
                 for(LinkedHashMap<String, Object> data : objectData) {
                     Coin model = new Coin();
@@ -79,9 +78,7 @@ public class CoinApiController {
                      
                     }
                     reponse.add(model);
-                    count ++;
                 }
-                int i = 0;
                 for(Coin coin: reponse) {
                     this.coinService.updateCoin(coin);
                 }

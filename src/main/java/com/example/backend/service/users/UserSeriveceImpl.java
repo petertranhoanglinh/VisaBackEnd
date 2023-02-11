@@ -64,9 +64,9 @@ public class UserSeriveceImpl implements UserSerivece {
     }
     @Override
     public int callUserProfilePkSp(UserDto user) {
-        if(!user.getPassword().equals("") || !user.getPassword().equals("********")) {
+        if(!user.getPassword().equals("********")) {
             user.setPassword( new BCryptPasswordEncoder().encode(user.getPassword()));
-        }else {
+        }else{
             user.setPassword("");
         }
         // upload image file
