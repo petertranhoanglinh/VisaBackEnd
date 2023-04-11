@@ -15,12 +15,12 @@
             }
 
             function connect() {
-                var socket = new SockJS('/gs-guide-websocket');
+                var socket = new SockJS('https://visabackend-production.up.railway.app/gs-guide-websocket');
                 stompClient = Stomp.over(socket);
                 stompClient.connect({}, function(frame) {
                     setConnected(true);
                     console.log('Connected: ' + frame);
-                    stompClient.subscribe('/topic/messages', function(messageOutput) {
+                    stompClient.subscribe('https://visabackend-production.up.railway.app/topic/messages', function(messageOutput) {
                         showMessageOutput(JSON.parse(messageOutput.body));
                     });
                 });
